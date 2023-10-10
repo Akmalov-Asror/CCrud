@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
-
 int rollNUmber[100];
 int numberOfStudentsAdded;
 char name[100][22];
@@ -48,9 +46,150 @@ void addStudents() {
     fflush(stdin);
 }
 
-void editStudents(){ }
-void deleteStudents(){ }
-void searchStudents(){ }
+void editStudents()
+{
+    int jRollNumber, found;
+    char jName[22];
+    char m;
+    int e;
+    printf("Welcome to Edit Module\n");
+    printf("Enter roll number to be edited :");
+    scanf("%d",&jRollNumber);
+    fflush(stdin);
+    if (jRollNumber<0)
+    {
+        printf("Invalid Input\n");
+        return;
+    }
+    e=0;
+    found=0;
+    while (e<numberOfStudentsAdded)
+    {
+        if (rollNUmber[e]==jRollNumber)
+        {
+            found++;
+            break;
+        }
+        e++;
+    }
+    if (found==0)
+    {
+        printf("Data not Found\n");
+        return;
+    }
+    printf("Name : %s\n", name[e]);
+    printf("Edit? (y/n) : ");
+    m=getchar();
+    if (m!='y' && m!='Y')
+    {
+        printf("Student not edited\n");
+        return;
+    }
+    fflush(stdin);
+    printf("Enter new name : ");
+    fgets(jName,22,stdin);
+    fflush(stdin);
+    jName[strlen(jName)-1]='\0';
+    printf("Update? (y/n) : ");
+    m=getchar();
+    if (m!='y' && m!='Y')
+    {
+        printf("Student not edited\n");
+        return;
+    }
+    strcpy(name[e],jName);
+    printf("Student updated successfully, press any key to continue...");
+    getchar();
+    fflush(stdin);
+}
+
+void deleteStudents()
+{
+    int jRollNumber, e, found, ep;
+    char m;
+    printf("Welcome To Delete Module\n");
+    printf("Welcome To Search Module\n");
+    printf("Enter roll number to be deleted :");
+    scanf("%d",&jRollNumber);
+    fflush(stdin);
+    if (jRollNumber<0)
+    {
+        printf("Invalid Input\n");
+        return;
+    }
+    e=0;
+    found=0;
+    while (e<numberOfStudentsAdded)
+    {
+        if (rollNUmber[e]==jRollNumber)
+        {
+            found++;
+            break;
+        }
+        e++;
+    }
+    if (found==0)
+    {
+        printf("Data not Found\n");
+        return;
+    }
+    printf("Name : %s", name[e]);
+    printf("Delete? (y/n) : ");
+    m=getchar();
+    if (m!='y' && m!='Y')
+    {
+        printf("Student not edited\n");
+        return;
+    }
+    fflush(stdin);
+    ep=numberOfStudentsAdded-2;
+    while (e<=ep)
+    {
+        rollNUmber[e]=rollNUmber[e+1];
+        strcpy(name[e],name[e+1]);
+        e++;
+    }
+    numberOfStudentsAdded--;
+    printf("Student deleted, press any key to continue");
+    getchar();
+    fflush(stdin);
+}
+
+void searchStudents()
+{
+    int e,jRollNumber,found;
+    printf("Welcome To Search Module\n");
+    printf("Enter roll number to be searched :");
+    scanf("%d",&jRollNumber);
+    fflush(stdin);
+    if (jRollNumber<0)
+    {
+        printf("Invalid Input\n");
+        return;
+    }
+    e=0;
+    found=0;
+    while (e<numberOfStudentsAdded)
+    {
+        if (rollNUmber[e]==jRollNumber)
+        {
+            found++;
+            break;
+        }
+        e++;
+    }
+    if (found==0)
+    {
+        printf("Data not Found\n");
+        return;
+    }
+    printf("Name : %s", name[e]);
+    printf("Press any key to continue......");
+    getchar();
+    fflush(stdin);
+}
+
+
 void displayListOfAllStudents()
 {
     char f;
@@ -61,7 +200,7 @@ void displayListOfAllStudents()
         printf("Roll Number : %d\t\tName : %s", rollNUmber[f],name[f]);
         f++;
     }
-    printf("Student displayed successfully, press any key to continue ");
+    printf("Student displayed successfully, press any key to continue \n");
     f=getchar();
     fflush(stdin);
 }
